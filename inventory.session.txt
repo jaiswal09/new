@@ -1,0 +1,304 @@
+# School Resource Management System - Complete Setup Guide
+
+This guide will help you set up and run the School Resource Management System on your computer using VS Code. Follow each step carefully.
+
+## PREREQUISITES (What you need before starting)
+
+### 1. Install Node.js
+- Go to https://nodejs.org/
+- Download the LTS (Long Term Support) version (recommended for most users)
+- Run the installer and follow the installation wizard
+- Accept all default settings
+- To verify installation:
+  - Press Windows key + R
+  - Type "cmd" and press Enter
+  - Type: node --version
+  - You should see a version number like v18.17.0 or similar
+
+### 2. Install Git
+- Go to https://git-scm.com/download/windows
+- Download Git for Windows
+- Run the installer
+- Accept all default settings during installation
+- To verify installation:
+  - Open Command Prompt (Windows key + R, type "cmd")
+  - Type: git --version
+  - You should see a version number
+
+### 3. Install Visual Studio Code
+- Go to https://code.visualstudio.com/
+- Click "Download for Windows"
+- Run the installer
+- Accept all default settings
+- Make sure to check "Add to PATH" during installation
+
+### 4. Install PostgreSQL Database
+- Go to https://www.postgresql.org/download/windows/
+- Download PostgreSQL installer
+- Run the installer
+- During installation:
+  - Set password for postgres user (remember this password!)
+  - Use default port 5432
+  - Accept all other defaults
+- Remember your password - you'll need it later!
+
+## STEP-BY-STEP SETUP
+
+### Step 1: Download the Project
+1. Open VS Code
+2. Press Ctrl + Shift + P to open command palette
+3. Type "Git: Clone" and select it
+4. If you have the project in a zip file:
+   - Extract the zip file to a folder like C:\Projects\school-resource-management
+   - In VS Code, go to File > Open Folder
+   - Select the extracted folder
+5. If you have a Git repository URL:
+   - Paste the repository URL
+   - Choose a location to save the project (like C:\Projects\)
+
+### Step 2: Open Terminal in VS Code
+1. In VS Code, go to Terminal > New Terminal (or press Ctrl + `)
+2. You should see a terminal window at the bottom of VS Code
+3. Make sure you're in the project directory (you should see files like package.json)
+
+### Step 3: Install Project Dependencies
+1. In the terminal, type the following command and press Enter:
+   ```
+   npm install
+   ```
+2. Wait for the installation to complete (this may take 5-10 minutes)
+3. You should see a "node_modules" folder appear in your project
+
+### Step 4: Set Up Environment Variables
+1. In VS Code, create a new file called ".env" in the root folder
+2. Right-click in the file explorer and select "New File"
+3. Name it exactly: .env (with the dot at the beginning)
+4. Copy and paste the following content into the .env file:
+
+```
+# Database Configuration
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/inventory
+
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_EXPIRE=7d
+
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+
+# Frontend Configuration
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+5. Replace "YOUR_PASSWORD" with the PostgreSQL password you set during installation
+6. Save the file (Ctrl + S)
+
+### Step 5: Set Up the Database
+1. Open pgAdmin (PostgreSQL administration tool):
+   - Search for "pgAdmin" in Windows Start menu
+   - Open pgAdmin 4
+2. Connect to your PostgreSQL server:
+   - Click on "Servers" in the left panel
+   - Right-click and select "Create" > "Server"
+   - Name: "Local Server"
+   - In "Connection" tab:
+     - Host: localhost
+     - Port: 5432
+     - Username: postgres
+     - Password: (your PostgreSQL password)
+   - Click "Save"
+3. Create the database:
+   - Right-click on your server
+   - Select "Create" > "Database"
+   - Database name: inventory
+   - Click "Save"
+
+### Step 6: Install VS Code Extensions (Recommended)
+1. Click on the Extensions icon in VS Code (square icon on left sidebar)
+2. Search for and install these extensions:
+   - "ES7+ React/Redux/React-Native snippets"
+   - "Prettier - Code formatter"
+   - "Auto Rename Tag"
+   - "Bracket Pair Colorizer"
+   - "GitLens"
+   - "Thunder Client" (for API testing)
+
+### Step 7: Start the Backend Server
+1. In VS Code terminal, navigate to the backend folder:
+   ```
+   cd backend
+   ```
+2. Install backend dependencies:
+   ```
+   npm install
+   ```
+3. Start the backend server:
+   ```
+   npm run dev
+   ```
+4. You should see messages like:
+   - "Database schema initialized successfully"
+   - "Server running on port 5000"
+5. Keep this terminal running - don't close it!
+
+### Step 8: Start the Frontend Application
+1. Open a new terminal in VS Code:
+   - Click Terminal > New Terminal
+   - Or press Ctrl + Shift + `
+2. Make sure you're in the root directory (not in backend folder):
+   ```
+   cd ..
+   ```
+3. Start the frontend development server:
+   ```
+   npm run dev
+   ```
+4. You should see:
+   - "Ready - started server on 0.0.0.0:3000"
+   - "Local: http://localhost:3000"
+
+### Step 9: Access the Application
+1. Open your web browser (Chrome, Firefox, Edge)
+2. Go to: http://localhost:3000
+3. You should see the School Resource Management System login page
+
+## TESTING THE SETUP
+
+### Create a Test Account
+1. On the login page, click "Register" or "Sign up"
+2. Fill in the registration form:
+   - Name: Test Admin
+   - Email: admin@test.com
+   - Password: password123
+   - Role: Administrator
+   - Department: IT
+3. Click "Create Account"
+4. You should be redirected to login
+5. Log in with your new credentials
+
+### Verify Everything Works
+1. After logging in, you should see the dashboard
+2. Try navigating to different sections:
+   - Resources
+   - Transactions
+   - Analytics
+3. If you see data and can navigate without errors, everything is working!
+
+## COMMON ISSUES AND SOLUTIONS
+
+### Issue 1: "npm is not recognized"
+- Solution: Restart VS Code and your computer after installing Node.js
+- Make sure Node.js was installed correctly
+
+### Issue 2: Database connection error
+- Check if PostgreSQL is running:
+  - Open Services (Windows key + R, type "services.msc")
+  - Look for "postgresql" service and make sure it's running
+- Verify your password in the .env file
+- Make sure the database "inventory" exists
+
+### Issue 3: Port already in use
+- If port 3000 or 5000 is busy:
+  - Close other applications that might be using these ports
+  - Or change the ports in your configuration
+
+### Issue 4: Permission errors
+- Run VS Code as Administrator:
+  - Right-click VS Code icon
+  - Select "Run as administrator"
+
+### Issue 5: Module not found errors
+- Delete node_modules folder and package-lock.json
+- Run `npm install` again
+
+## DEVELOPMENT WORKFLOW
+
+### Daily Development Routine
+1. Open VS Code
+2. Open the project folder
+3. Start backend server:
+   ```
+   cd backend
+   npm run dev
+   ```
+4. In new terminal, start frontend:
+   ```
+   cd ..
+   npm run dev
+   ```
+5. Open browser to http://localhost:3000
+6. Make your changes and save files
+7. The application will automatically reload with your changes
+
+### Stopping the Servers
+- To stop any server: Press Ctrl + C in the terminal
+- Close VS Code to stop everything
+
+### Making Changes
+- Frontend code is in: app/, components/, lib/ folders
+- Backend code is in: backend/src/ folder
+- Database schema is in: backend/src/config/db.schema.sql
+- Styles are in: app/globals.css and component files
+
+## USEFUL VS CODE SHORTCUTS
+
+- Ctrl + ` : Open/close terminal
+- Ctrl + Shift + ` : New terminal
+- Ctrl + P : Quick file search
+- Ctrl + Shift + P : Command palette
+- Ctrl + / : Comment/uncomment line
+- Alt + Shift + F : Format document
+- Ctrl + S : Save file
+- Ctrl + Z : Undo
+- Ctrl + Shift + Z : Redo
+
+## PROJECT STRUCTURE OVERVIEW
+
+```
+school-resource-management/
+├── app/                    # Next.js pages and layouts
+├── components/            # React components
+├── lib/                   # Utility functions and API calls
+├── backend/              # Express.js backend server
+│   ├── src/
+│   │   ├── controllers/  # API route handlers
+│   │   ├── routes/       # API routes
+│   │   ├── middleware/   # Authentication, validation
+│   │   └── config/       # Database configuration
+├── public/               # Static files
+├── .env                  # Environment variables
+├── package.json          # Project dependencies
+└── README.md            # Project documentation
+```
+
+## GETTING HELP
+
+If you encounter issues:
+1. Check the terminal for error messages
+2. Look at the browser console (F12 > Console tab)
+3. Make sure all services are running
+4. Restart the servers
+5. Check that all environment variables are set correctly
+
+## NEXT STEPS
+
+Once everything is running:
+1. Explore the application features
+2. Try creating resources, categories, and transactions
+3. Look at the code to understand how it works
+4. Make small changes to see how they affect the application
+5. Read the component files to understand the structure
+
+Remember: Save your work frequently (Ctrl + S) and commit changes to Git regularly!
+
+## IMPORTANT NOTES
+
+- Always keep both terminal windows running (backend and frontend)
+- Don't close VS Code while developing
+- The database needs to be running (PostgreSQL service)
+- If you restart your computer, you'll need to start the servers again
+- Your changes are automatically saved and the app reloads
+- The .env file contains sensitive information - never share it publicly
+
+Congratulations! You now have a fully functional School Resource Management System running on your computer.

@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/sagarjaiswal/Desktop/Sahil/chat-zvmbaekqrriw0gw04kgm8t56-files/app/layout\":[\"static/media/af4bf8399d1aacdf-s.p.woff2\",\"static/media/e4af272ccee01ff0-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
