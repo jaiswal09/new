@@ -1,16 +1,15 @@
-import "./globals.css";
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
-import { Toaster } from "@/components/ui/toaster";
-import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Inter } from "next/font/google";
+import "./globals.css";
 import { AuthProvider } from "@/providers/auth-provider";
+import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces" });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "School Resource Management System",
-  description: "Intelligent Resource and Inventory Management System for Schools",
+  title: "Resource Management System",
+  description: "School Resource Management and Inventory System",
 };
 
 export default function RootLayout({
@@ -20,10 +19,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${fraunces.variable} font-sans`}>
-        <ThemeProvider attribute="class" defaultTheme="light">
-          <AuthProvider>{children}</AuthProvider>
-          <Toaster />
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            {children}
+            <Toaster />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
