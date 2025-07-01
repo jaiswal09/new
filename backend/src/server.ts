@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-import { initializeDatabase } from './config/db';
+import { connectDB } from './config/db';
 
 // Import routes
 import authRoutes from './routes/auth.routes';
@@ -70,7 +70,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 const startServer = async () => {
   try {
     // Initialize database schema
-    await initializeDatabase();
+    await connectDB();
     
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
