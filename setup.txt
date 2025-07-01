@@ -1,0 +1,230 @@
+🎓 SCHOOL RESOURCE MANAGEMENT SYSTEM - SETUP GUIDE
+==================================================
+
+This guide will help you set up and run the Resource Management System step by step.
+Perfect for beginners who have never coded before! 🚀
+
+📋 WHAT YOU NEED BEFORE STARTING:
+---------------------------------
+1. A computer with internet connection
+2. VS Code (Visual Studio Code) - we'll install this first
+3. Node.js - we'll install this too
+4. A database account (we'll use free Neon PostgreSQL)
+
+🔧 STEP 1: INSTALL REQUIRED SOFTWARE
+------------------------------------
+
+1.1 Install VS Code:
+   - Go to: https://code.visualstudio.com/
+   - Click "Download for [Your OS]"
+   - Install like any normal program
+   - Open VS Code after installation
+
+1.2 Install Node.js:
+   - Go to: https://nodejs.org/
+   - Download the LTS version (the recommended one)
+   - Install it (just click next, next, finish)
+   - To verify: Open Command Prompt/Terminal and type: node --version
+   - You should see something like: v18.17.0
+
+💾 STEP 2: SET UP DATABASE (FREE NEON DATABASE)
+-----------------------------------------------
+
+2.1 Create Neon Account:
+   - Go to: https://neon.tech/
+   - Click "Sign Up" and create a free account
+   - Create a new project called "school-resources"
+
+2.2 Get Database Connection:
+   - In your Neon dashboard, find "Connection String"
+   - Copy the connection string (looks like: postgresql://user:pass@host/db?ssl...)
+   - Keep this safe - you'll need it soon!
+
+📁 STEP 3: OPEN PROJECT IN VS CODE
+----------------------------------
+
+3.1 Open VS Code
+3.2 Click "File" → "Open Folder"
+3.3 Navigate to your project folder and select it
+3.4 VS Code will open your project
+
+🔑 STEP 4: CONFIGURE ENVIRONMENT
+--------------------------------
+
+4.1 Look for the file called ".env" in VS Code
+4.2 Replace the DATABASE_URL with your Neon connection string:
+   
+   Change this line:
+   DATABASE_URL=postgresql://postgres:2831@localhost:5432/inventory
+   
+   To your Neon connection (example):
+   DATABASE_URL=postgresql://your-user:your-pass@your-host.neon.tech/your-db?sslmode=require
+
+4.3 Also update NEXT_PUBLIC_DATABASE_URL with the same connection string
+
+📦 STEP 5: INSTALL DEPENDENCIES
+-------------------------------
+
+5.1 Open Terminal in VS Code:
+   - Click "Terminal" in the top menu
+   - Click "New Terminal"
+   - A black/white box will appear at the bottom
+
+5.2 Install project dependencies:
+   Type this command and press Enter:
+   npm install
+
+   Wait for it to finish (might take 2-3 minutes)
+
+🚀 STEP 6: START THE APPLICATION
+--------------------------------
+
+6.1 Start the backend server:
+   In the terminal, type:
+   cd backend && npm run dev
+
+   Keep this terminal open! You should see:
+   "Server running on port 3001"
+
+6.2 Open a NEW terminal (click the + button in terminal area)
+   In the new terminal, type:
+   npm run dev
+
+   You should see:
+   "Ready - started server on 0.0.0.0:3000"
+
+🌐 STEP 7: ACCESS YOUR APPLICATION
+----------------------------------
+
+7.1 Open your web browser
+7.2 Go to: http://localhost:3000
+7.3 You should see the login page!
+
+🔐 STEP 8: LOGIN CREDENTIALS
+----------------------------
+
+For testing, use these credentials:
+   Email: admin@school.com (or any email)
+   Password: password123
+
+🛠️ STEP 9: HOW TO CHECK IF EVERYTHING WORKS
+-------------------------------------------
+
+9.1 Check Frontend:
+   - Go to http://localhost:3000
+   - You should see a nice blue login page
+   - Try logging in with the test credentials
+
+9.2 Check Backend:
+   - Go to http://localhost:3001/api/auth/me
+   - You should see some JSON data (even if it says unauthorized)
+
+9.3 Check Database Connection:
+   - Look at the terminal where you started the backend
+   - You should see "Database connected successfully"
+   - If you see connection errors, double-check your .env file
+
+🐛 TROUBLESHOOTING COMMON ISSUES
+--------------------------------
+
+Problem: "npm is not recognized"
+Solution: Restart your computer after installing Node.js
+
+Problem: "Port 3000 is already in use"
+Solution: Close other applications or use: npx kill-port 3000
+
+Problem: "Module not found"
+Solution: Run: npm install
+
+Problem: Database connection failed
+Solution: 
+- Check your .env file
+- Make sure your Neon database is active
+- Verify the connection string is correct
+
+Problem: Page shows "Internal Server Error"
+Solution: 
+- Check both terminals are running
+- Restart both servers (Ctrl+C then npm run dev again)
+
+🎯 UNDERSTANDING THE PROJECT STRUCTURE
+--------------------------------------
+
+📁 app/                 - Website pages (login, dashboard, etc.)
+📁 components/          - Reusable parts of the website
+📁 backend/            - Server-side code (API)
+📁 lib/                - Helper functions
+📁 public/             - Images and static files
+📄 .env                - Secret configuration (passwords, etc.)
+📄 package.json        - Project settings
+
+🔄 DAILY USAGE WORKFLOW
+-----------------------
+
+Every time you want to work on the project:
+
+1. Open VS Code
+2. Open terminal and type: cd backend && npm run dev
+3. Open another terminal and type: npm run dev
+4. Go to http://localhost:3000 in your browser
+5. Start coding!
+
+To stop the servers:
+- Press Ctrl+C in both terminals
+
+📚 WHAT EACH PART DOES
+----------------------
+
+Frontend (Port 3000):
+- The website users see and interact with
+- Login pages, dashboard, resource management
+- Built with Next.js and React
+
+Backend (Port 3001):
+- The server that handles data
+- Processes login requests, manages database
+- Built with Express.js
+
+Database (Neon):
+- Stores all your data (users, resources, etc.)
+- PostgreSQL database in the cloud
+
+🎉 CONGRATULATIONS!
+-------------------
+
+You now have a fully functional Resource Management System!
+
+Users can:
+✅ Create accounts and login
+✅ View dashboard with metrics
+✅ Manage school resources
+✅ Track inventory
+✅ Make reservations
+
+Next steps:
+- Add real data to your database
+- Customize the design and colors
+- Add more features as needed
+
+💡 TIPS FOR BEGINNERS
+---------------------
+
+1. Always keep both terminals running while developing
+2. Save your files (Ctrl+S) before testing changes
+3. If something breaks, restart both servers
+4. Check the browser's developer tools (F12) for errors
+5. Don't be afraid to experiment!
+
+🆘 NEED HELP?
+-------------
+
+If you get stuck:
+1. Check the terminal for error messages
+2. Make sure both servers are running
+3. Verify your .env file is correct
+4. Try restarting everything
+5. Google the specific error message
+
+Remember: Every developer started as a beginner. You've got this! 🚀
+
+=== END OF SETUP GUIDE ===

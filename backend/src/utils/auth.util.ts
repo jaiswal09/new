@@ -3,15 +3,10 @@ import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 
 // Generate JWT token
-export const generateToken = (userId: string, role: string): string => {
-  const payload = {
-    userId,
-    role,
-  };
-
+export const generateToken = (payload: any): string => {
   return jwt.sign(payload, process.env.JWT_SECRET || 'fallback_secret', {
     expiresIn: process.env.JWT_EXPIRE || '7d',
-  });
+  } as jwt.SignOptions);
 };
 
 // Hash password
