@@ -1,54 +1,18 @@
-import { Router } from 'express';
-import {
-  getAllResources,
-  getResourceById,
-  createResource,
-  updateResource,
-  deleteResource,
-  getLowStockResources,
-  getResourcesByExpiry,
-} from '../controllers/resource.controller';
-import { protect, authorize } from '../middleware/auth.middleware';
-import { validate } from '../middleware/validate.middleware';
-import { resourceSchema } from '../utils/validation.util';
+import { Router } from "express";
+import { authMiddleware } from "../middleware/auth.middleware";
 
 const router = Router();
 
-// Get all resources
-router.get('/', protect, getAllResources);
+router.get("/", authMiddleware, (req, res) => {
+  res.json({ success: true, data: [] });
+});
 
-// Get low stock resources
-router.get('/low-stock', protect, getLowStockResources);
+router.get("/low-stock", authMiddleware, (req, res) => {
+  res.json({ success: true, data: [] });
+});
 
-// Get resources by expiry date
-router.get('/expiry', protect, getResourcesByExpiry);
-
-// Get single resource
-router.get('/:id', protect, getResourceById);
-
-// Create a new resource
-router.post(
-  '/',
-  protect,
-  authorize('admin', 'staff'),
-  validate(resourceSchema),
-  createResource
-);
-
-// Update a resource
-router.put(
-  '/:id',
-  protect,
-  authorize('admin', 'staff'),
-  updateResource
-);
-
-// Delete a resource
-router.delete(
-  '/:id',
-  protect,
-  authorize('admin'),
-  deleteResource
-);
+router.get("/expiry", authMiddleware, (req, res) => {
+  res.json({ success: true, data: [] });
+});
 
 export default router;

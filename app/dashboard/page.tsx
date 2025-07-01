@@ -1,36 +1,39 @@
-import { Metadata } from "next";
+"use client";
+
+import { AuthCheck } from "@/components/layout/auth-check";
 import { AppShell } from "@/components/layout/app-shell";
 import { DashboardMetrics } from "@/components/dashboard/dashboard-metrics";
-import { DashboardRecentActivity } from "@/components/dashboard/dashboard-recent-activity";
 import { DashboardInventory } from "@/components/dashboard/dashboard-inventory";
+import { DashboardRecentActivity } from "@/components/dashboard/dashboard-recent-activity";
 import { DashboardUpcomingReservations } from "@/components/dashboard/dashboard-upcoming-reservations";
-
-export const metadata: Metadata = {
-  title: "Dashboard | School Resource Management System",
-  description: "Dashboard for School Resource Management System",
-};
+import { useAuth } from "@/providers/auth-provider";
 
 export default function DashboardPage() {
+  const { user } = useAuth();
+
+  console.log("Dashboard page loaded for user:", user?.name);
+
   return (
-    <AppShell>
-      <div className="space-y-6 p-6 pt-8">
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <div className="flex items-center space-x-2">
-            <span className="text-sm text-muted-foreground">
-              Last updated: {new Date().toLocaleString()}
-            </span>
+    <AuthCheck>
+      <AppShell>
+        <div className="space-y-8">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+            <p className="text-muted-foreground">
+              Welcome back, {user?.name}! Here's what's happening in your resource management system.
+            </p>
           </div>
-        </div>
-        <div className="space-y-6">
+
           <DashboardMetrics />
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
-            <DashboardInventory className="md:col-span-1 lg:col-span-3" />
-            <DashboardUpcomingReservations className="md:col-span-1 lg:col-span-4" />
+
+          <div className="grid gap-8 md:grid-cols-2">
+            <DashboardInventory />
+            <DashboardUpcomingReservations />
           </div>
+
           <DashboardRecentActivity />
         </div>
-      </div>
-    </AppShell>
+      </AppShell>
+    </AuthCheck>
   );
 }
