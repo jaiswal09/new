@@ -4,6 +4,7 @@ import { authMiddleware } from "../middleware/auth.middleware";
 const router = Router();
 
 router.get("/", authMiddleware, (req, res) => {
+  console.log("Purchase orders route accessed");
   res.json({ success: true, data: [] });
 });
 

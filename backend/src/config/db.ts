@@ -1,23 +1,23 @@
-import { Pool } from "pg";
+import { neon } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-http';
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || process.env.NEXT_PUBLIC_DATABASE_URL,
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
-});
+console.log("Database connection - DATABASE_URL:", process.env.DATABASE_URL ? "Set" : "Not set");
 
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is not defined in the environment variables');
+}
+
+const pg = neon(process.env.DATABASE_URL);
+export const db = drizzle({ client: pg });
+
+// Test connection function
 export const connectDB = async () => {
   try {
-    await pool.connect();
+    console.log("Testing database connection...");
+    await pg`SELECT 1`;
     console.log("Database connected successfully");
   } catch (error) {
     console.error("Database connection failed:", error);
-    // Don't exit process in development to allow app to run without DB
-    if (process.env.NODE_ENV === "production") {
-      process.exit(1);
-    } else {
-      console.log("Running in development mode without database connection");
-    }
+    throw error;
   }
 };
-
-export default pool;

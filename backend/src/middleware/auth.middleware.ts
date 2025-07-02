@@ -1,39 +1,42 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
 
-interface AuthRequest extends Request {
-  user?: any;
+interface JwtPayload {
+  userId: string;
+  email: string;
+  role: string;
 }
 
-export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
-  try {
-    const token = req.header("Authorization")?.replace("Bearer ", "") || req.cookies?.token;
-    
-    if (!token) {
-      return res.status(401).json({
-        success: false,
-        message: "Access denied. No token provided."
-      });
+declare global {
+  namespace Express {
+    interface Request {
+      user?: JwtPayload;
     }
-    
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "fallback_secret");
+  }
+}
+
+export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+
+  console.log("Auth middleware - Token:", token ? "Present" : "Missing");
+
+  if (!token) {
+    return res.status(401).json({ message: 'Access denied. No token provided.' });
+  }
+
+  try {
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      console.error("JWT_SECRET not configured");
+      return res.status(500).json({ message: 'Server configuration error' });
+    }
+
+    const decoded = jwt.verify(token, jwtSecret) as JwtPayload;
     req.user = decoded;
+    console.log("Auth middleware - User authenticated:", decoded.email);
     next();
   } catch (error) {
-    console.error("Auth middleware error:", error);
-    res.status(401).json({
-      success: false,
-      message: "Invalid token"
-    });
+    console.error("Token verification failed:", error);
+    res.status(401).json({ message: 'Invalid token.' });
   }
-};
-
-export const adminMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
-  if (req.user?.role !== "admin") {
-    return res.status(403).json({
-      success: false,
-      message: "Access denied. Admin role required."
-    });
-  }
-  next();
 };

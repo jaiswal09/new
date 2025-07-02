@@ -1,38 +1,30 @@
 {
-  "name": "resource-management-backend",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "Backend API for School Resource Management System",
-  "main": "dist/server.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "test": "jest"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
-    "express": "^5.1.0",
-    "cors": "^2.8.5",
-    "helmet": "^8.1.0",
-    "express-rate-limit": "^7.5.0",
-    "express-validator": "^7.2.1",
-    "dotenv": "^16.5.0",
-    "bcrypt": "^6.0.0",
-    "jsonwebtoken": "^9.0.2",
-    "pg": "^8.16.0",
-    "uuid": "^11.1.0",
-    "drizzle-orm": "^0.43.1",
-    "@neondatabase/serverless": "^1.0.0"
-  },
-  "devDependencies": {
-    "@types/express": "^5.0.2",
-    "@types/cors": "^2.8.18",
+    "@neondatabase/serverless": "^1.0.1",
     "@types/bcrypt": "^5.0.2",
-    "@types/jsonwebtoken": "^9.0.9",
-    "@types/pg": "^8.15.2",
-    "@types/uuid": "^10.0.0",
-    "@types/node": "^20",
-    "tsx": "^4.19.4",
-    "typescript": "^5",
-    "nodemon": "^3.1.10"
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.0.10",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
+    "drizzle-orm": "^0.44.2",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }
